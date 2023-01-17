@@ -1,0 +1,67 @@
+databaseChangeLog:
+  - changeSet:
+        id: 2
+        author: Nikolay Erofeev
+        changes:
+          - insert:
+              tableName: persons
+              columns:
+                - column:
+                    name: name
+                    value: "Алексей"
+                - column:
+                    name: surname
+                    value: "Алексеев"
+                - column:
+                    name: age
+                    value: 20
+                - column:
+                    name: city_of_living
+                    value: "Москва"
+                - column:
+                    name: phone_number
+                    value: "+79991234567"
+  - changeSet:
+      id: 3
+      author: Nikolay Erofeev
+      changes:
+        - insert:
+            tableName: persons
+            columns:
+              - column:
+                  name: name
+                  value: "Петр"
+              - column:
+                  name: surname
+                  value: "Петров"
+              - column:
+                  name: age
+                  value: 30
+              - column:
+                  name: city_of_living
+                  value: "Москва"
+              - column:
+                  name: phone_number
+                  value: "+79991234567"
+  - changeSet:
+      id: 4
+      author: Nikolay Erofeev
+      changes:
+        - insert:
+            tableName: persons
+            columns:
+              - column:
+                  name: name
+                  value: "Ivan"
+              - column:
+                  name: surname
+                  value: "Ivanov"
+              - column:
+                  name: age
+                  value: 40
+              - column:
+                  name: city_of_living
+                  value: "Казань"
+              - column:
+                  name: phone_number
+                  value: "+79991234567"
