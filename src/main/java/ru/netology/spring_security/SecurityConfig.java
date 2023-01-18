@@ -1,30 +1,25 @@
 package ru.netology.spring_security;
-
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Configuration
+import java.util.Objects;
+
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true, jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Bean
+    public PasswordEncoder encoder(){
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("Ivan").password("{noop}1234").authorities("read-age")
+        Objects.requireNonNull(auth.inMemoryAuthentication()
+                .withUser("Ivan").password(encoder().encode("1234")).roles("READ")
                 .and()
-                .withUser("Anton").password("{noop}4321").authorities("read-fio");
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
-                .and()
-                .authorizeRequests().antMatchers("/persons/by-city").permitAll()
-                .and()
-                .authorizeRequests().antMatchers("/persons/by-age").hasAuthority("read-age")
-                .and()
-                .authorizeRequests().antMatchers("/persons/by-fio").hasAuthority("read-fio")
-                .and()
-                .authorizeRequests().anyRequest().authenticated();
+                .withUser("Anton").password(encoder().encode("4321")).roles("WRITE"));
     }
 }
