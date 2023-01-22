@@ -20,6 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         Objects.requireNonNull(auth.inMemoryAuthentication()
                 .withUser("Ivan").password(encoder().encode("1234")).roles("READ")
                 .and()
-                .withUser("Anton").password(encoder().encode("4321")).roles("WRITE"));
+                .withUser("Anton").password(encoder().encode("4321")).roles("WRITE")
+                .and()
+                .withUser("Maxim").password(encoder().encode("1111")).roles("DELETE"));
     }
 }
